@@ -1,0 +1,82 @@
+const btn = document.querySelector('.talk');
+const content = document.querySelector('.content');
+
+//
+const greetings = [
+'Im good', 
+'Doing good',
+'Hello Master', 
+'leave me alone'
+];
+
+const weather = [
+'Weather is okay',
+'why do you want to know',
+'its so hot go outside        now'
+];
+
+const insult = [
+'leave me alone',
+'you are a stupid idiot master'
+];
+
+const stupid = [
+'leave me alone',
+'you are a stupid idiot master'
+];
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.onstart = function () {
+	console.log('voice is activated, you can talk to microphone');
+};
+
+recognition.onresult = function(event){
+	const current = event.resultIndex;
+
+	const transcript = event.results[current][0].transcript
+	content.textContent = transcript;
+	readOutLoud(transcript);
+};
+
+
+//add the listener to the button
+
+btn.addEventListener('click', () => {
+	recognition.start();
+});
+
+function readOutLoud(message){
+	const speech = new SpeechSynthesisUtterance();
+
+		speech.text = 'i dont know what you said master but i can search it for you';
+
+    if (message.includes('how are you','hello')) {
+    	const finalText = greetings[Math.floor(Math.random() * greetings.length)];
+    	speech.text = finalText;
+    }
+
+    if (message.includes('weather')) {
+    	const finalText = weather[Math.floor(Math.random() * weather.length)];
+    	speech.text = finalText;
+    }
+
+    if (message.includes('shut up')) {
+    	const finalText = insult[Math.floor(Math.random() * insult.length)];
+    	speech.text = finalText;
+    }
+
+     if (message.includes('schmuck')) {
+    	const finalText = stupid[Math.floor(Math.random() * stupid.length)];
+    	speech.text = finalText;
+    }
+
+
+	speech.volume = 1;
+	speech.rate = 1.5;
+	speech.pitch = 1;
+
+	window.speechSynthesis.speak(speech);
+}
+
