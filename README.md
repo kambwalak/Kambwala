@@ -1,5 +1,5 @@
 
-DISCLAIMER: this may not execute on all desktop browsers it definitely in chrome
+DISCLAIMER: this may not execute on all desktop browsers it definitely will in chrome
 and this is only the javascript file so copy here for html file:
 
 <!DOCTYPE html>
